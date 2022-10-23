@@ -250,6 +250,7 @@ myLogHook = return ()
 myStartupHook = do
 	spawnOnce "nitrogen --restore &"
 	spawnOnce "picom &"
+	spawnOnce "xinput set-prop 12 313 1 &"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
