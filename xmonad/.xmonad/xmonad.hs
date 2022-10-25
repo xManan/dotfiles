@@ -71,6 +71,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+    
+    -- launch betterlockscreen
+    , ((modm .|. shiftMask, xK_l     ), spawn "betterlockscreen -l")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)

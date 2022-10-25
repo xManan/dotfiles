@@ -6,6 +6,12 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover, {
+        -- Use a sharp border with `FloatBorder` highlights
+        border = "single"
+    }
+)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -40,20 +46,25 @@ local lsp_flags = {
 local servers = {
     'pyright',
     'tsserver',
-    'clangd',
     'jdtls',
+--    'ccls',
+    'clangd',
 }
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 for _,server in ipairs(servers) do
     require('lspconfig')[server].setup{
         on_attach = on_attach,
         flags = lsp_flags,
+        capabilities = capabilities,
     }
 end
 
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
     -- Server-specific settings...
     settings = {
         ["rust-analyzer"] = {}
@@ -62,6 +73,7 @@ require('lspconfig')['rust_analyzer'].setup{
 require('lspconfig')['sumneko_lua'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
     -- Server-specific settings...
     settings = {
         Lua = {

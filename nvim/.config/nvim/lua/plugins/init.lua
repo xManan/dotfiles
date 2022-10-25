@@ -17,6 +17,18 @@ require('packer').startup(function(use)
     -- Mason
     use { "williamboman/mason.nvim" }
     use { "williamboman/mason-lspconfig.nvim" }
+
+    -- Snippets
+    use { "L3MON4D3/LuaSnip" }
+    use { "rafamadriz/friendly-snippets" }
+
+    -- Autocomplete
+    use { "hrsh7th/nvim-cmp" }
+    use { "hrsh7th/cmp-nvim-lsp" }
+    use { "hrsh7th/cmp-nvim-lsp-signature-help" }
+    use { "hrsh7th/cmp-path" }
+    use { "hrsh7th/cmp-buffer" }
+    use { "saadparwaiz1/cmp_luasnip" }
 end)
 
 

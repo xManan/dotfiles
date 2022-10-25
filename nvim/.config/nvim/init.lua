@@ -4,9 +4,10 @@ require('mappings')
 require('treesitter-config')
 require('mason-config')
 require('mason-lsp-config')
+require('luasnip-config')
+require('nvim-cmp-config')
 require('lsp-config')
 
 vim.cmd("colorscheme catppuccin")
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 vim.cmd("hi NormalNC guibg=NONE ctermbg=NONE")
-
