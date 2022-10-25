@@ -13,20 +13,10 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     }
 )
 
-local border = {
-	{ "┌", "FloatBorder" }, -- top left
-	{ "─", "FloatBorder" },
-	{ "┐", "FloatBorder" }, -- top right
-	{ "│", "FloatBorder" },
-	{ "┘", "FloatBorder" }, -- bottom right
-	{ "─", "FloatBorder" },
-	{ "└", "FloatBorder" }, -- bottom left
-	{ "│", "FloatBorder" },
-}
 
 vim.diagnostic.config({
     float = {
-        border = border
+        border = require'utils'.border
     }
 })
 

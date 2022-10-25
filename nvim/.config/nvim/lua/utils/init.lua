@@ -8,4 +8,15 @@ function M.map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+M.border = {
+	{ "╭", "FloatBorder" }, -- top left
+	{ "─", "FloatBorder" },
+	{ "╮", "FloatBorder" }, -- top right
+	{ "│", "FloatBorder" },
+	{ "╯", "FloatBorder" }, -- bottom right
+	{ "─", "FloatBorder" },
+	{ "╰", "FloatBorder" }, -- bottom left
+	{ "│", "FloatBorder" },
+}
+
 return M
