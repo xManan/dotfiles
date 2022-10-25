@@ -29,6 +29,11 @@ require('packer').startup(function(use)
     use { "hrsh7th/cmp-path" }
     use { "hrsh7th/cmp-buffer" }
     use { "saadparwaiz1/cmp_luasnip" }
+
+    -- TODO add telescope
+    -- TODO undotree
+    -- TODO tabnine
+    -- TODO linters, code actions, formatting
 end)
 
 

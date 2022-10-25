@@ -7,6 +7,7 @@ require('mason-lsp-config')
 require('luasnip-config')
 require('nvim-cmp-config')
 require('lsp-config')
+require('colorscheme-config.catppuccin')
 
 vim.cmd("colorscheme catppuccin")
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
