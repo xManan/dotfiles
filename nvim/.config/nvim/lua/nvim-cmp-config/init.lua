@@ -57,6 +57,7 @@ cmp.setup({
     }, {
         { name = 'buffer', keyword_length = 5 },
     }),
+
     experimental = {
         -- I like the new menu better! Nice work hrsh7th
         native_menu = false,

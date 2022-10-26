@@ -30,6 +30,9 @@ require('packer').startup(function(use)
     use { "hrsh7th/cmp-buffer" }
     use { "saadparwaiz1/cmp_luasnip" }
 
+    -- Comment
+    use { 'numToStr/Comment.nvim' }
+
     -- TODO add telescope
     -- TODO undotree
     -- TODO tabnine

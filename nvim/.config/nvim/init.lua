@@ -8,6 +8,7 @@ require('luasnip-config')
 require('nvim-cmp-config')
 require('lsp-config')
 require('colorscheme-config.catppuccin')
+require('comment-config')
 
 vim.cmd("colorscheme catppuccin")
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
