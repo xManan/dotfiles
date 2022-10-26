@@ -72,9 +72,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
     
-    -- launch betterlockscreen
-    , ((modm .|. shiftMask, xK_l     ), spawn "betterlockscreen -l")
-
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
 
@@ -253,7 +250,8 @@ myLogHook = return ()
 myStartupHook = do
 	spawnOnce "nitrogen --restore &"
 	spawnOnce "picom &"
-	spawnOnce "xinput set-prop 12 313 1 &"
+	spawnOnce "sxhkd &"
+	spawnOnce "xinput set-prop 12 313 1 &" -- enable mouse tapping (not working xinputrc)
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.

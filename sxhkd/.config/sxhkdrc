@@ -1,0 +1,11 @@
+XF86MonBrightness{Up,Down} 
+    xbacklight -{inc,dec} 5
+
+XF86Audio{Raise,Lower}Volume
+    pactl set-sink-volume @DEFAULT_SINK@ {+5%,-5%}
+
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+super + L
+    betterlockscreen -l
