@@ -10,6 +10,8 @@ require('packer').startup(function(use)
 
     -- Treesitter
     use("nvim-treesitter/nvim-treesitter")
+    use("nvim-treesitter/nvim-treesitter-textobjects")
+    use("nvim-treesitter/playground")
 
     -- Lspconfig
     use("neovim/nvim-lspconfig")
