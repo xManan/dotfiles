@@ -12,6 +12,7 @@ import Data.Monoid
 import System.Exit
 
 import XMonad.Util.SpawnOnce
+import XMonad.Hooks.DynamicLog
 import XMonad.Util.Run
 import XMonad.Hooks.ManageDocks
 
@@ -258,9 +259,35 @@ myStartupHook = do
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = do
+main = do {
 	xmproc <- spawnPipe "xmobar /home/manan/.config/xmobar/xmobar.config"
-	xmonad $ docks defaults
+	-- xmonad $ docks defaults
+    ; xmonad $ docks def {
+      -- simple stuff
+        terminal           = myTerminal,
+        focusFollowsMouse  = myFocusFollowsMouse,
+        clickJustFocuses   = myClickJustFocuses,
+        borderWidth        = myBorderWidth,
+        modMask            = myModMask,
+        workspaces         = myWorkspaces,
+        normalBorderColor  = myNormalBorderColor,
+        focusedBorderColor = myFocusedBorderColor,
+
+      -- key bindings
+        keys               = myKeys,
+        mouseBindings      = myMouseBindings,
+
+      -- hooks, layouts
+        layoutHook         = myLayout,
+        manageHook         = myManageHook,
+        handleEventHook    = myEventHook,
+        logHook            = dynamicLogWithPP $
+                                xmobarPP {
+                                        ppOutput = hPutStrLn xmproc
+                                        },
+        startupHook        = myStartupHook
+    }
+}
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
