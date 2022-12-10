@@ -56,6 +56,7 @@ local servers = {
     'jdtls',
 --    'ccls',
     'clangd',
+    'svelte',
 }
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

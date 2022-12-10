@@ -1,0 +1,155 @@
+#!/bin/sh
+#single video/reel: curl -s "https://www.instagram.com/p/CaxSL_bL7mP/" --cookie ~/Downloads/cookies.txt | grep -oE "\{\"item.*\}" | jq -r '.items[0].video_versions[] | select(.type == 101) | .url'
+#multiple videos: curl "https://www.instagram.com/p/CZTG51EIIUJUyktQlwWvwgOdZXGy5Q-XTFLGXo0/" -b ~/Downloads/cookies.txt -c ~/Downloads/cookies.txt| grep -oE "\{\"items.*\}" | jq -r '.items[0].carousel_media[].video_versions | select(. != null)[] | select(.type == 101).url'
+#saved_post: curl 'https://i.instagram.com/api/v1/feed/saved/posts/?max_id=' -H 'X-IG-App-ID: 936619743392459' -b ~/.cache/insta-dl/cookies.txt -c ~/.cache/insta-dl/cookies.txt | jq
+
+sh_info(){
+    printf "%b\n" "$1" >&2
+    [ -n "$2" ] && exit "$2"
+}
+
+n_sh_info(){
+    printf "%b\n" "$1" >&2
+    notify-send --hint=string:x-dunst-stack-tag:insta-dl -t 2000 "$1"
+    [ -n "$2" ] && exit "$2"
+}
+
+dep_ck() {
+	for pr; do
+		command -v $pr >/dev/null 2>&1 || dep_nf="$dep_nf $pr"
+	done
+}
+
+dep_ck "curl" "jq"
+
+dep_ck "sxiv" "curl" "jq"
+[ -n "$dep_nf" ] && sh_info "Install the following:$dep_nf\n" 1
+
+usage(){
+    printf "Usage: insta-dl [\-h] [\-p] [\-d download_directory] [\-c cookie_file] <URL>\n\n" 
+    printf "insta-dl: Download public instagram videos\n\n"
+    printf "Options:\n"
+    printf "\t-h %30s show this help message and exit.\n"
+    printf "\t-p %30s play the video.\n"
+    printf "\t-d download_directory %11s Download video and where to.\n %-40s By default insta-dl outputs the remote video link.\n" ""
+    printf "\t-c cookie_file %18s takes instagram cookie from a file.\n %-40s By default insta-dl reads \$HOME/.cache/insta-dl/cookies.txt\n"
+}
+
+PLAY=
+DOWN_DIR=
+URL=
+
+while [ -n "$1" ]
+do
+    case "$1" in 
+        -p|--play)
+            PLAY=1
+            ;;
+        -d|--download)
+            shift
+            case "$1" in
+                -*|"")
+                    echo provide a directory
+                    exit 1
+                    ;;
+                *)
+                    DOWN_DIR="$1"
+                    ;;
+            esac
+            ;;
+        -c|--cookies)
+            shift
+            case "$1" in
+                -*|"")
+                    echo provide a cookie file
+                    exit 1
+                    ;;
+                *)
+                    COOKIE_FILE="$1"
+                    ;;
+            esac
+            ;;
+        -*)
+            echo "not an option $1"
+            exit 1
+            ;;
+        *)
+            URL="$1"
+            ;;
+    esac
+    shift
+done
+
+[ -n "$URL" ] || sh_info "provide a link" 1
+
+case "$DOWN_DIR" in
+    "");;
+    /*);;
+    *) DOWN_DIR="$PWD/$DOWN_DIR" ;;
+esac
+
+[ -n "$DOWN_DIR" ] && [ ! -d "$DOWN_DIR" ] && sh_info "$DOWN_DIR : directory does not exits" 1
+
+cachedir="$HOME/.cache/insta-dl"
+
+mkdir -p "$cachedir"
+
+#COOKIE_FILE="$cachedir/cookies.txt" 
+
+[ -n "$COOKIE_FILE" ] || COOKIE_FILE="$cachedir/cookies.txt"
+
+json_data=$(curl -s "$URL?__a=1&__d=dis" -b "$COOKIE_FILE" -c "$COOKIE_FILE")
+
+sh_info "link: $URL"
+
+[ -n "$json_data" ] || n_sh_info "check cookies or url" 1
+
+json_data=$(printf "%s" "$json_data" | jq -r '.items[0]')
+
+[ -n "$json_data" ] || sh_info "failed to fetch. rate limiting maybe" 1
+
+post_id=$(printf "%s" "$json_data" | jq -r '.code')
+
+user=$(printf "%s" "$json_data" | jq -r '.user.username' | tr -cd '[:alnum:]._-')
+
+media_type=$(printf "%s" "$json_data" | jq -r '.media_type')
+
+FILE="$DOWN_DIR/$(printf "%s_%s.mp4" "$user" "$post_id")"
+
+[ -f "$FILE" ] && sh_info "Already exists" 1
+
+case "$media_type" in
+    1) 
+        sh_info "image\n" 1
+        ;;
+    2) 
+        n_sh_info "Video by $user-$post_id"
+        video_url=$(printf "%s" "$json_data" | jq -r '.video_versions[] | select(.type == 101) | .url')
+
+        if [ -n "$DOWN_DIR" ]
+        then
+            printf "Downloading to %s\n" "$FILE" >&2
+            curl "$video_url" -o "$FILE"
+            if [ -n "$PLAY" ]
+            then
+                printf "Playing %s\n" "$FILE" >&2
+                mpv --really-quiet "$FILE"
+            fi
+
+        elif [ -n "$PLAY" ]
+        then
+            printf "Playing %s\n" "$video_url" >&2
+            mpv --really-quiet "$video_url"
+
+        else
+            printf "%s\n" "$video_url"
+        fi
+        ;;
+    8) 
+        sh_info "thread\n" 1
+        ;;
+esac
+
+
+
+
