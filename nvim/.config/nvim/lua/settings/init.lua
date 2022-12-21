@@ -44,3 +44,4 @@ vim.g.mapleader = " "
 
 vim.opt.mouse = ""
 
+vim.api.nvim_command('command W execute "w"')
