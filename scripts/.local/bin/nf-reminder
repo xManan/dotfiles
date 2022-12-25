@@ -12,9 +12,9 @@ done
 
 echo running...
 
-days=$(( ($(date +%s) - 1670696900) / 86400 ))
+days=$(( ($(date +%s) - 1671735642) / 86400 ))
 while true
 do
-    notify-send "Day $days" "$(cat ~/.cache/nf-motivation | shuf -n1)"
+    notify-send "Day $days" -t 750
     sleep 1h
 done

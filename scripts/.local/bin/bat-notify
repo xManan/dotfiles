@@ -1,10 +1,31 @@
 #!/bin/zsh
 
+filename=$0:t
+for pid in $(pgrep -x $filename)
+do
+    if [ "$pid" != "$$" ]
+    then
+        echo "$filename : Process is already running with PID $pid"
+        exit 1
+    fi
+done
+
 while true; do
     battery_level=$(cat /sys/class/power_supply/BAT1/capacity)
-    if [ $battery_level -lt 20 ]
+    battery_status=$(cat /sys/class/power_supply/BAT1/status)
+
+    if [ $battery_status = "Discharging" ]
     then
-        notify-send "Battery is low" "Battery level is at $battery_level%. Please charge the device."
+        if [ $battery_level -lt 20 ]
+        then
+            notify-send "Battery is low" "Battery level is at $battery_level%. Please charge the device."
+        fi
+    else
+        if [ $battery_level -gt 90 ]
+        then
+            notify-send "Battery is almost full" "Battery level is at $battery_level%. Please unplug the charger."
+        fi
     fi
+
     sleep 10m
 done
