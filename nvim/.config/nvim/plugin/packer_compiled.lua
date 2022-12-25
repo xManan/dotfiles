@@ -124,6 +124,11 @@ _G.packer_plugins = {
     path = "/home/manan/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/gruvbox-community/gruvbox"
   },
+  harpoon = {
+    loaded = true,
+    path = "/home/manan/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/ThePrimeagen/harpoon"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/manan/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -183,6 +188,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/manan/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
+  },
+  undotree = {
+    loaded = true,
+    path = "/home/manan/.local/share/nvim/site/pack/packer/start/undotree",
+    url = "https://github.com/mbbill/undotree"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/home/manan/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   }
 }
 

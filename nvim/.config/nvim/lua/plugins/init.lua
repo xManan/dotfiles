@@ -41,8 +41,15 @@ require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
+    -- Harpoon
+    use { 'ThePrimeagen/harpoon' }
 
-    -- TODO undotree
+    -- Undotree
+    use { 'mbbill/undotree' }
+
+    -- Git Fugitive
+    use { 'tpope/vim-fugitive' }
+
     -- TODO tabnine
     -- TODO linters, code actions, formatting
 end)

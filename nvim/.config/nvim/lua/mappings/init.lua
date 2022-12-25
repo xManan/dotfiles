@@ -1,8 +1,11 @@
 local map = require'utils'.map
 
-map('n', '<leader>e', ':20Lexplore<cr>')
+map('n', '<leader>e', ':Ex<cr>')
 map('n', '<leader>nc', ':e $XDG_CONFIG_HOME/nvim<cr>')
 map('n', '<leader>fo', ':lua vim.lsp.buf.format()<cr>')
+
+map('n', '<leader>u', ':UndotreeToggle<cr>')
+map('n', '<leader>gs', ':Git<cr>')
 
 -- greatest remap ever
 map('x', '<leader>p', '"_dP')
