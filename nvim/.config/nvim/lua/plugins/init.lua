@@ -35,7 +35,7 @@ require('packer').startup(function(use)
     -- Comment
     use { 'numToStr/Comment.nvim' }
 
-    -- TODO add telescope
+    -- Telescope
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { {'nvim-lua/plenary.nvim'} }
@@ -49,6 +49,11 @@ require('packer').startup(function(use)
 
     -- Git Fugitive
     use { 'tpope/vim-fugitive' }
+
+    -- ToggleTerm
+    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+        require("toggleterm").setup()
+    end}
 
     -- TODO tabnine
     -- TODO linters, code actions, formatting

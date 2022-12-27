@@ -252,7 +252,6 @@ myStartupHook = do
 	spawnOnce "nitrogen --restore &"
 	spawnOnce "picom &"
 	spawnOnce "sxhkd &"
-	spawnOnce "nf-reminder &"
 	spawnOnce "bat-notify &"
 	-- spawnOnce "xinput set-prop 12 313 1 &" -- enable mouse tapping (not working xinputrc)
 
