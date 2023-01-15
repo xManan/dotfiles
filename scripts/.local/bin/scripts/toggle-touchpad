@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Check the current state of the touchpad
+state=$(xinput --list-props "SynPS/2 Synaptics TouchPad" | grep "Device Enabled" | awk '{print $4}')
+
+# Toggle the touchpad
+if [ $state -eq 1 ]
+then
+    xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
+    notify-send -h string:x-dunst-stack-tag:toggle-touchpad "Touchpad disabled"
+else
+    xinput --set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1
+    notify-send -h string:x-dunst-stack-tag:toggle-touchpad "Touchpad enabled"
+fi

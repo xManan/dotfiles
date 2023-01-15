@@ -18,12 +18,12 @@ while true; do
     then
         if [ $battery_level -lt 20 ]
         then
-            notify-send "Battery is low" "Battery level is at $battery_level%. Please charge the device."
+            notify-send -h string:x-dunst-stack-tag:bat-notify "Battery is low" "Battery level is at $battery_level%. Please charge the device."
         fi
     else
         if [ $battery_level -gt 90 ]
         then
-            notify-send "Battery is almost full" "Battery level is at $battery_level%. Please unplug the charger."
+            notify-send -h string:x-dunst-stack-tag:bat-notify "Battery is almost full" "Battery level is at $battery_level%. Please unplug your charger."
         fi
     fi
 

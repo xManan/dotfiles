@@ -253,7 +253,7 @@ myStartupHook = do
 	spawnOnce "picom &"
 	spawnOnce "sxhkd &"
 	spawnOnce "bat-notify &"
-	-- spawnOnce "xinput set-prop 12 313 1 &" -- enable mouse tapping (not working xinputrc)
+	spawnOnce "enable-touchpad &" -- enable mouse tapping (not working xinputrc)
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.

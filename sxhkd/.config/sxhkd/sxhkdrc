@@ -7,5 +7,8 @@ XF86Audio{Raise,Lower}Volume
 XF86AudioMute
     pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+XF86TouchpadToggle
+    toggle-touchpad
+
 super + L
     betterlockscreen -l
