@@ -5,3 +5,4 @@ device_id=$(xinput list | grep -i touchpad | grep -o "id=[0-9]*" | grep -o "[0-9
 
 # Enable tapping on the touchpad
 xinput set-prop $device_id "libinput Tapping Enabled" 1
+xinput set-prop $device_id "libinput Natural Scrolling Enabled" 1

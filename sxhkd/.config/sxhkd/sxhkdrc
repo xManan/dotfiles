@@ -12,3 +12,6 @@ XF86TouchpadToggle
 
 super + L
     betterlockscreen -l
+
+super + s
+    screenshot.sh
