@@ -1,6 +1,6 @@
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover, {
@@ -11,7 +11,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 
 vim.diagnostic.config({
     float = {
-        border = require'utils'.border
+        border = require 'utils'.border
     }
 })
 
@@ -23,7 +23,7 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -53,7 +53,7 @@ local servers = {
     'pyright',
     'tsserver',
     'jdtls',
---    'ccls',
+    --    'ccls',
     'clangd',
     'svelte',
     'tailwindcss',
@@ -62,25 +62,25 @@ local servers = {
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-for _,server in ipairs(servers) do
-    require('lspconfig')[server].setup{
+for _, server in ipairs(servers) do
+    require('lspconfig')[server].setup {
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
     }
 end
 
-require('lspconfig')['rust_analyzer'].setup{
+require('lspconfig')['rust_analyzer'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
     -- Server-specific settings...
     settings = {
-        ["rust-analyzer"] = {}
+            ["rust-analyzer"] = {}
     }
 }
 
-require('lspconfig')['lua_ls'].setup{
+require('lspconfig')['lua_ls'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
