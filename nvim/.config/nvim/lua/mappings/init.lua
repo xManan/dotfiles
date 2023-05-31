@@ -1,7 +1,7 @@
 local map = require'utils'.map
 
 map('n', '<leader>e', ':Ex<cr>')
-map('n', '<leader>nc', ':e $XDG_CONFIG_HOME/nvim<cr>')
+map('n', '<leader>nc', ':e $HOME/.config/nvim<cr>')
 
 map('n', '<leader>u', ':UndotreeToggle<cr>')
 map('n', '<leader>gs', ':Git<cr>')
