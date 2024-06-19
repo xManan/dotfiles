@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+dir=~/.password-store
+otp_dir=otp
+password_files=( $dir/$otp_dir/*.gpg )
+password_files=( "${password_files[@]#$dir/}" )
+password_files=( "${password_files[@]%.gpg}" )
+
+password=$(printf '%s\n' ${password_files[@]} | dmenu)
+
+[[ -n $password ]] || exit
+
+pass otp show -c $password
